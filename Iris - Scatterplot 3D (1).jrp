@@ -1,0 +1,421 @@
+﻿Local Here(
+	(table1 = New Table( "Iris",
+		Add Rows( 150 ),
+		New Table Variable(
+			["en" => "Reference",
+			"ja" => "参照",
+			"x-id" => "S_Iris_Reference_Var",
+			"zh-CN" => "参考"],
+			["en" =>
+			"D.F. Andrews, D.F. and Herzberg, A.M. (1985). Data. Springer Verlag.",
+			"ja" =>
+			"D.F. Andrews, D.F. and Herzberg, A.M. (1985). Data. Springer Verlag.",
+			"x-id" => "S_Iris_D_F_Andrews_D_F_and_Herzberg_A_M_Txt",
+			"zh-CN" =>
+			"D.F. Andrews, D.F. and Herzberg, A.M. (1985). Data. Springer Verlag."]
+		),
+		New Table Variable( "Notes",
+			["en" =>
+			"Famous Fisher Iris data, measurements of the sepal length and width and petal length and width in centimeters.",
+			"ja" => "アヤメのデータ。Fisherが取り上げたことで有名。がくと花弁のそれぞれについて、長さと幅をセンチメートルで測定。",
+			"x-id" => "S_Famous_Fisher_Iris_data_measurem_Txt",
+			"zh-CN" => "著名的 Fisher Iris 数据，以厘米计量萼片长度和宽度以及花瓣长度和宽度。"]
+		),
+		New Script(
+			["en" => "Nominal Logistic",
+			"ja" => "名義ロジスティック",
+			"x-id" => "S_Nominal_Logistic_Scp",
+			"zh-CN" => "名义型 Logistic"],
+			Fit Model(
+				Y( :Species ),
+				Effects( :Sepal length, :Sepal width, :Petal length, :Petal width ),
+				Personality( "Nominal Logistic" ),
+				Run
+			)
+		),
+		New Script(
+			["en" => "Discriminant",
+			"ja" => "判別分析",
+			"x-id" => "S_Discriminant_Scp",
+			"zh-CN" => "判别"],
+			Discriminant(
+				X( :Species ),
+				Y( :Sepal length, :Sepal width, :Petal length, :Petal width )
+			)
+		),
+		New Script(
+			["en" => "Scatterplot 3D",
+			"ja" => "三次元散布図",
+			"x-id" => "S_Scatterplot_3D_Scp",
+			"zh-CN" => "三维散点图"],
+			Scatterplot 3D(
+				Y( :Sepal length, :Sepal width, :Petal length, :Petal width ),
+				Frame3D(
+					Set Rotation(
+						-37.7763571468042, -20.0181349932962, 0.755666043084993
+					)
+				)
+			)
+		),
+		New Script(
+			["en" => "Graph Builder Contour Plot",
+			"ja" => "グラフビルダー 等高線",
+			"x-id" => "S_Iris_Graph_Builder_Contour_Plot_Scp",
+			"zh-CN" => "图形生成器: 等高线图"],
+			Graph Builder(
+				Show Control Panel( 0 ),
+				Variables(
+					X( :Sepal length ),
+					Y( :Sepal width ),
+					Overlay( :Species )
+				),
+				Elements(
+					Contour( X, Y, Legend( 3 ), Number of Levels( 3 ) ),
+					Points( X, Y, Legend( 4 ) )
+				),
+				SendToReport(
+					Dispatch(
+						{},
+						"Sepal length",
+						ScaleBox,
+						{Min( 4.02451368343195 ), Max( 8.24903846153846 ), Inc( 1 ),
+						Minor Ticks( 0 )}
+					),
+					Dispatch(
+						{},
+						"Sepal width",
+						ScaleBox,
+						{Min( 1.75 ), Max( 5.00400457665904 ), Inc( 1 ),
+						Minor Ticks( 0 )}
+					),
+					Dispatch(
+						{},
+						"400",
+						LegendBox,
+						{Legend Position( {0, 1, 2, -1, -1, -1} )}
+					)
+				)
+			)
+		),
+		New Script(
+			["en" => "Graph Builder Violin Plot",
+			"ja" => "グラフビルダー バイオリンプロット",
+			"x-id" => "S_Iris_Graph_Builder_Ellipse_Scp",
+			"zh-CN" => "图形生成器: 小提琴图"],
+			Graph Builder(
+				Show Control Panel( 0 ),
+				Show Legend( 0 ),
+				Variables( X( :Sepal length ), Y( :Species ) ),
+				Elements( Contour( X, Y, Legend( 2 ), Number of Levels( 0 ) ) ),
+				SendToReport(
+					Dispatch(
+						{},
+						"graph title",
+						TextEditBox,
+						{Set Text( "Sepal length vs. Species" )}
+					)
+				)
+			)
+		),
+		New Script(
+			["en" => "Graph Builder Box Plot",
+			"ja" => "グラフビルダー 箱ひげ図",
+			"x-id" => "S_Iris_Graph_Builder_Box_Plot_Scp",
+			"zh-CN" => "图形生成器: 箱线图"],
+			Graph Builder(
+				Show Control Panel( 0 ),
+				Show Legend( 0 ),
+				Variables( X( :Sepal length ), Y( :Species ) ),
+				Elements(
+					Box Plot(
+						X,
+						Y,
+						Legend( 4 ),
+						Jitter( 1 ),
+						Outliers( 1 ),
+						Box Style( "Outlier" )
+					)
+				),
+				SendToReport(
+					Dispatch(
+						{},
+						"graph title",
+						TextEditBox,
+						{Set Text( "Sepal length vs. Species" )}
+					)
+				)
+			)
+		),
+		New Column(
+			["en" => "Sepal length",
+			"ja" => "がくの長さ",
+			"x-id" => "S_Sepal_length_Col",
+			"zh-CN" => "萼片长度"],
+			Numeric,
+			"Continuous",
+			Format( "Fixed Dec", 10, 1 ),
+			Set Property(
+				"Notes",
+				["en" =>
+				"Use as Y in Spin to see clusters and patterns
+Use as X in Specify Model for Discriminant Scores to predict species.
+Use as one of the Ys in Fit Model to get probability scores to predict species.
+Use as a Y variable in Cluster",
+				"ja" =>
+				"三次元散布図」では、Yとして指定する。
+「あやめの種類」を予測するモデルを作成したい場合、判別分析ではYとして指定し、
+「モデルのあてはめ」ではXとして指定する。
+「クラスター分析」では、Yとして指定する。",
+				"x-id" => "S_Use_as_Y_in_Spin_to_see_clusters_Not",
+				"zh-CN" =>
+				"在“旋转”中用作 Y 以查看聚类和模式。
+在“指定模型”中用作 X 以获取“判别评分”从而预测物种。
+在“拟合模型”中用作 Y 变量之一以获取概率评分从而预测物种。
+在“聚类”中用作 Y 变量"
+				]
+			),
+			Set Values(
+				[5.1, 4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3,
+				5.8, 5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2,
+				5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5,
+				4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3,
+				4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, 6.2, 5.6, 5.9,
+				6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, 5.5, 5.8, 6, 5.4, 6,
+				6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7,
+				6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7,
+				5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1,
+				6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9,
+				5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9]
+			),
+			Set Display Width( 0 )
+		),
+		New Column(
+			["en" => "Sepal width",
+			"ja" => "がくの幅",
+			"x-id" => "S_Sepal_width_Col",
+			"zh-CN" => "萼片宽度"],
+			Numeric,
+			"Continuous",
+			Format( "Fixed Dec", 10, 1 ),
+			Set Property(
+				"Notes",
+				["en" =>
+				"Use as Y in Spin to see clusters and patterns
+Use as X in Specify Model for Discriminant Scores to predict species.
+Use as one of the Ys in Fit Model to get probability scores to predict species.
+Use as a Y variable in Cluster",
+				"ja" =>
+				"三次元散布図」では、Yとして指定する。
+「あやめの種類」を予測するモデルを作成したい場合、判別分析ではYとして指定し、
+「モデルのあてはめ」ではXとして指定する。
+「クラスター分析」では、Yとして指定する。",
+				"x-id" => "S_Use_as_Y_in_Spin_to_see_clusters_2_Not",
+				"zh-CN" =>
+				"在“旋转”中用作 Y 以查看聚类和模式。
+在“指定模型”中用作 X 以获取“判别评分”从而预测物种。
+在“拟合模型”中用作 Y 变量之一以获取概率评分从而预测物种。
+在“聚类”中用作 Y 变量"
+				]
+			),
+			Set Values(
+				[3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3, 3, 4,
+				4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3, 3.4, 3.5, 3.4,
+				3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2,
+				3.5, 3.8, 3, 3.8, 3.2, 3.7, 3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3,
+				2.4, 2.9, 2.7, 2, 3, 2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8,
+				2.5, 2.8, 2.9, 3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1,
+				2.3, 3, 2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7,
+				3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, 3, 3.8,
+				2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, 3, 2.8, 3.8,
+				2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, 3.2, 3.3, 3, 2.5,
+				3, 3.4, 3]
+			),
+			Set Display Width( 0 )
+		),
+		New Column(
+			["en" => "Petal length",
+			"ja" => "花弁の長さ",
+			"x-id" => "S_Petal_length_Col",
+			"zh-CN" => "花瓣长度"],
+			Numeric,
+			"Continuous",
+			Format( "Fixed Dec", 10, 1 ),
+			Set Property(
+				"Notes",
+				["en" =>
+				"Use as Y in Spin to see clusters and patterns
+Use as X in Specify Model for Discriminant Scores to predict species.
+Use as one of the Ys in Fit Model to get probability scores to predict species.
+Use as a Y variable in Cluster",
+				"ja" =>
+				"三次元散布図」では、Yとして指定する。
+「あやめの種類」を予測するモデルを作成したい場合、判別分析ではYとして指定し、
+「モデルのあてはめ」ではXとして指定する。
+「クラスター分析」では、Yとして指定する。",
+				"x-id" => "S_Use_as_Y_in_Spin_to_see_clusters_3_Not",
+				"zh-CN" =>
+				"在“旋转”中用作 Y 以查看聚类和模式。
+在“指定模型”中用作 X 以获取“判别评分”从而预测物种。
+在“拟合模型”中用作 Y 变量之一以获取概率评分从而预测物种。
+在“聚类”中用作 Y 变量"
+				]
+			),
+			Set Values(
+				[1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4,
+				1.1, 1.2, 1.5, 1.3, 1.4, 1.7, 1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6,
+				1.5, 1.4, 1.6, 1.6, 1.5, 1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3,
+				1.3, 1.3, 1.6, 1.9, 1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6,
+				4.5, 4.7, 3.3, 4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5,
+				3.9, 4.8, 4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9,
+				5.1, 4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2,
+				4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, 5.1,
+				5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, 4.9, 5.7, 6,
+				4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, 5.6, 5.5, 4.8, 5.4,
+				5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, 5.1]
+			),
+			Set Display Width( 0 )
+		),
+		New Column(
+			["en" => "Petal width",
+			"ja" => "花弁の幅",
+			"x-id" => "S_Petal_width_Col",
+			"zh-CN" => "花瓣宽度"],
+			Numeric,
+			"Continuous",
+			Format( "Fixed Dec", 10, 1 ),
+			Set Property(
+				"Notes",
+				["en" =>
+				"Use as Y in Spin to see clusters and patterns
+Use as X in Specify Model for Discriminant Scores to predict species.
+Use as one of the Ys in Fit Model to get probability scores to predict species.
+Use as a Y variable in Cluster",
+				"ja" =>
+				"三次元散布図」では、Yとして指定する。
+「あやめの種類」を予測するモデルを作成したい場合、判別分析ではYとして指定し、
+「モデルのあてはめ」ではXとして指定する。
+「クラスター分析」では、Yとして指定する。",
+				"x-id" => "S_Use_as_Y_in_Spin_to_see_clusters_4_Not",
+				"zh-CN" =>
+				"在“旋转”中用作 Y 以查看聚类和模式。
+在“指定模型”中用作 X 以获取“判别评分”从而预测物种。
+在“拟合模型”中用作 Y 变量之一以获取概率评分从而预测物种。
+在“聚类”中用作 Y 变量"
+				]
+			),
+			Set Values(
+				[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1,
+				0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4,
+				0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3,
+				0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, 1.4, 1.5, 1.5, 1.3, 1.5,
+				1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, 1.3, 1.4, 1.5, 1, 1.5, 1.1,
+				1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1, 1.1, 1, 1.2, 1.6,
+				1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3,
+				1.1, 1.3, 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9,
+				2.1, 2, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8,
+				1.8, 2.1, 1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4,
+				2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8]
+			),
+			Set Display Width( 0 )
+		),
+		New Column(
+			["en" => "Species",
+			"ja" => "種類",
+			"x-id" => "S_Species_Col",
+			"zh-CN" => "物种"],
+			Character,
+			"Nominal",
+			Set Property(
+				"Notes",
+				["en" =>
+				"Known category. Compare to predictions from analyses, use as label variable in plots and for Cluster procedure.",
+				"ja" => "既知のカテゴリ。分析の結果として予測されたものと比較する。プロットやクラスター分析ではラベル変数として使用する。",
+				"x-id" => "S_Known_category_Compare_to_predic_Not",
+				"zh-CN" => "已知类别。与分析中的预测值比较，用作图形中和聚类过程的标签变量。"]
+			),
+			Set Values(
+				{"setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "setosa", "setosa", "setosa", "setosa", "setosa",
+				"setosa", "setosa", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "versicolor", "versicolor", "versicolor",
+				"versicolor", "versicolor", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica", "virginica", "virginica", "virginica",
+				"virginica", "virginica"}
+			),
+			Set Display Width( 0 )
+		),
+		Set Row States(
+			[768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 768.82924413681, 768.82924413681,
+			768.82924413681, 768.82924413681, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1024.24094045162, 1024.24094045162, 1024.24094045162, 1024.24094045162,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657, 1280.259534657, 1280.259534657,
+			1280.259534657, 1280.259534657]
+		)
+	)) << Run Formulas;
+	New Window( "Iris - Scatterplot 3D",
+		table1 << Scatterplot 3D(
+			Y( :Sepal length, :Sepal width, :Petal length ),
+			Weight( :Petal width ),
+			Sized Points( 1 ),
+			Frame3D(
+				Set Grab Handles( 0 ),
+				Set Rotation( -54, 0, 38 ),
+				Set Marker Quality( 1 )
+			)
+		)
+	) << Move Window( 369, 52 ) << Set Window Icon( "Scatter3D" );
+)

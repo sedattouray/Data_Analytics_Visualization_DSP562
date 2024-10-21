@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div>
+
+
+
+<h1 class="title toc-ignore">Number4</h1>
+<h4 class="date">2024-02-23</h4>
+
+</div>
+
+
+<div class="section level1">
+<h1>Sheikh-Sedat Touray</h1>
+<p>#QUESTION 4 `</p>
+<div class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document to show my first log into the uri R
+studio. attaching dataset</p>
+<pre class="r"><code>attach(mtcars)
+head(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+</div>
+</div>
+<div class="section level1">
+<h1>Simple Scatterplot1</h1>
+<pre class="r"><code>plot(wt, mpg, main=&quot;Scatterplot Example&quot;,
+   xlab=&quot;Car Weight &quot;, ylab=&quot;Miles Per Gallon &quot;, pch=19)</code></pre>
+<p><img src="javascript://" width="672"/></p>
+</div>
+<div class="section level1">
+<h1>Simple Scatterplot2</h1>
+<pre class="r"><code># Add fit lines
+plot(wt, mpg, main=&quot;Scatterplot Example&quot;,
+   xlab=&quot;Car Weight &quot;, ylab=&quot;Miles Per Gallon &quot;, pch=19)
+abline(lm(mpg~wt), col=&quot;red&quot;) # regression line (y~x)
+lines(lowess(wt,mpg), col=&quot;blue&quot;) # lowess line (x,y)</code></pre>
+<p><img src="javascript://" width="672"/></p>
+</div>
+<div class="section level1">
+<h1>Scatterplot3</h1>
+<pre class="r"><code># High Density Scatterplot with Binning
+library(hexbin)
+x &lt;- rnorm(1000)
+y &lt;- rnorm(1000)
+bin&lt;-hexbin(x, y, xbins=50)
+
+plot(bin, main=&quot;Hexagonal Binning&quot;)</code></pre>
+<p><img src="javascript://" width="672"/></p>
+</div>
+<div class="section level1">
+<h1>Scatterplot4</h1>
+<pre class="r"><code># Basic Scatterplot Matrix
+pairs(~mpg+disp+drat+wt,data=mtcars,
+   main=&quot;Simple Scatterplot Matrix&quot;)</code></pre>
+<p><img src="javascript://" width="672"/></p>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="module" src="https://s.brightspace.com/lib/bsi/2024.9.248/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+						if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+							document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+								elm.setAttribute('style', 'display: block; height: 0.5rem;');
+							});
+
+							window.D2L.MathJax.loadMathJax({
+								outputScale: 1.5,
+								renderLatex: true,
+								enableMML3Support: false
+							});
+						}
+					});</script><script type="module" src="https://s.brightspace.com/lib/bsi/2024.9.248/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/2024.9.248/unbundled/embeds.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					window.D2L.EmbedRenderer.renderEmbeds(document.body);
+				});</script></body></html>

@@ -1,0 +1,62 @@
+---
+title: 'Number4 '
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+date: "2024-02-23"
+---
+# Sheikh-Sedat Touray
+
+#QUESTION 4
+`
+
+## R Markdown
+
+This is an R Markdown document to show my first log into the uri R studio.
+attaching dataset
+```{r}
+attach(mtcars)
+head(mtcars)
+```
+
+# Simple Scatterplot1
+
+```{r}
+plot(wt, mpg, main="Scatterplot Example",
+   xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+```
+
+
+# Simple Scatterplot2
+ 
+   
+```{r}
+# Add fit lines
+plot(wt, mpg, main="Scatterplot Example",
+   xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+abline(lm(mpg~wt), col="red") # regression line (y~x)
+lines(lowess(wt,mpg), col="blue") # lowess line (x,y)
+```
+
+
+# Scatterplot3
+```{r}
+# High Density Scatterplot with Binning
+library(hexbin)
+x <- rnorm(1000)
+y <- rnorm(1000)
+bin<-hexbin(x, y, xbins=50)
+
+plot(bin, main="Hexagonal Binning")
+
+```
+
+# Scatterplot4
+
+```{r}
+# Basic Scatterplot Matrix
+pairs(~mpg+disp+drat+wt,data=mtcars,
+   main="Simple Scatterplot Matrix")
+```
+
